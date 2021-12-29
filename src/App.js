@@ -4,9 +4,11 @@ import "./App.css";
 function App() {
   const [buttonColor, setButtonColor] = useState("red");
   const [nextColor, setNextColor] = useState("blue");
+  const [isCheck, setIsCheck] = useState(false);
   return (
     <div>
       <button
+        disabled={isCheck}
         onClick={() => {
           setButtonColor(buttonColor === "red" ? "blue" : "red");
           setNextColor(nextColor === "blue" ? "red" : "blue");
@@ -15,7 +17,12 @@ function App() {
       >
         Change to {nextColor}
       </button>
-      <input type="checkbox" />
+      <input
+        onChange={(e) => {
+          setIsCheck(e.target.checked);
+        }}
+        type="checkbox"
+      />
     </div>
   );
 }
