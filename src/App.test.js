@@ -4,10 +4,15 @@ import App from "./App";
 test("button has correct initial color", () => {
   render(<App />);
   const colorButton = screen.getByRole("button", { name: "Change to blue" });
+  const checkbox = screen.getByRole("checkbox");
   expect(colorButton).toHaveStyle({ backgroundColor: "red" });
   fireEvent.click(colorButton);
   expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
   expect(colorButton.textContent).toBe("Change to red");
+  fireEvent.click(checkbox);
+  expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
+  fireEvent.click(checkbox);
+  expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
 });
 
 test("initial conditions", () => {
@@ -20,12 +25,13 @@ test("initial conditions", () => {
 
 test("checkbox control", () => {
   render(<App />);
-  const checkbox = screen.getByRole("checkbox");
+  const checkbox = screen.getByRole("checkbox", { name: "Disable button" });
+  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+
   fireEvent.click(checkbox);
-  expect(checkbox).toBeChecked();
-  const colorButton = screen.getByRole("button");
   expect(colorButton).toBeDisabled();
+  expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
   fireEvent.click(checkbox);
-  expect(checkbox).not.toBeChecked();
   expect(colorButton).toBeEnabled();
+  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
 });

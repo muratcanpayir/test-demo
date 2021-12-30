@@ -13,16 +13,18 @@ function App() {
           setButtonColor(buttonColor === "red" ? "blue" : "red");
           setNextColor(nextColor === "blue" ? "red" : "blue");
         }}
-        style={{ backgroundColor: buttonColor }}
+        style={{ backgroundColor: isCheck ? "gray" : buttonColor }}
       >
         Change to {nextColor}
       </button>
       <input
+        id="disabled-checkbox"
         onChange={(e) => {
           setIsCheck(e.target.checked);
         }}
         type="checkbox"
       />
+      <label htmlFor="disabled-checkbox">Disable button</label>
     </div>
   );
 }
